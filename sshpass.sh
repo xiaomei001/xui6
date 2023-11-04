@@ -1,26 +1,22 @@
 #!/bin/bash
 
-# 要执行的命令
-command_to_run="bash <(wget -qO- -o- https://github.com/xiaomei001/xui6/raw/main/az.sh)"
+# 从指定 URL 下载 IP 地址列表文件
+ip_list_url="https://raw.githubusercontent.com/xiaomei001/xui6/main/IP/ip20231105.80.txt"
+ip_list_file="ip.txt"
 
 # 下载 IP 地址列表文件
-ip_file_url="https://raw.githubusercontent.com/xiaomei001/xui6/main/IP/ip20231105.80.txt"
-ip_file="ip.txt"
+wget -O "$ip_list_file" "$ip_list_url"
 
-# SSH 密码
-ssh_password="rOck123456a"
-
-# 下载 IP 地址列表文件
-wget -O "$ip_file" "$ip_file_url"
-
-# 检查 IP 文件是否存在
-if [ ! -f "$ip_file" ]; then
-  echo "IP file '$ip_file' not found."
+# 检查文件是否成功下载
+if [ -s "$ip_list_file" ]; then
+  echo "IP 地址列表下载成功。"
+else
+  echo "无法下载 IP 地址列表。"
   exit 1
 fi
 
-# 读取 IP 列表并在每台主机上执行命令
+# 读取 IP 地址列表文件并执行命令
 while IFS= read -r ip; do
-  echo "Running command on $ip"
-  sshpass -p "$ssh_password" ssh root@"$ip" "$command_to_run"
-done < "$ip_file"
+  echo "在 $ip 上运行命令"
+  sshpass -p rOck123456a ssh -o StrictHostKeyChecking=no root@"$ip" "bash <(wget -qO- -o- https://github.com/xiaomei001/xui6/raw/main/az.sh)"
+done < "$ip_list_file"
