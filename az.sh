@@ -14,7 +14,13 @@ rm /etc/systemd/system/x-ui.service
 
 # 指定要下载的文件的URL和目标目录
 downloads=(
-  "https://raw.githubusercontent.com/xiaomei001/xui6/main/x-ui-linux-amd64 /usr/local/x-ui-linux-amd64.tar.gz"
+  "https://raw.githubusercontent.com/xiaomei001/xui6/main/x-ui/x-ui.service /usr/local/x-ui/x-ui.service"
+  "https://raw.githubusercontent.com/xiaomei001/xui6/main/x-ui/x-ui /usr/local/x-ui/x-ui"
+  "https://raw.githubusercontent.com/xiaomei001/xui6/main/x-ui/bin/LICENSE /usr/local/x-ui/bin/LICENSE"
+  "https://raw.githubusercontent.com/xiaomei001/xui6/main/x-ui/bin/README.md /usr/local/x-ui/bin/README.md"
+  "https://raw.githubusercontent.com/xiaomei001/xui6/main/x-ui/bin/geoip.dat /usr/local/x-ui/bin/geoip.dat"
+  "https://raw.githubusercontent.com/xiaomei001/xui6/main/x-ui/bin/geosite.dat /usr/local/x-ui/bin/geosite.dat"
+  "https://raw.githubusercontent.com/xiaomei001/xui6/main/x-ui/bin/xray-linux-amd64 /usr/local/x-ui/bin/xray-linux-amd64"
   "https://raw.githubusercontent.com/xiaomei001/xui6/main/x-ui-yg.db /etc/x-ui-yg/x-ui-yg.db"
 )
 
@@ -29,7 +35,7 @@ for download in "${downloads[@]}"; do
   fi
 done
 
-tar -xzvf /usr/local/x-ui-linux-amd64.tar.gz
+
 chmod +x /usr/local/x-ui/x-ui
 chmod +x /usr/local/x-ui/bin/xray-linux-amd64
 ln -s /usr/local/x-ui/x-ui.service /etc/systemd/system/multi-user.target.wants/x-ui.service
