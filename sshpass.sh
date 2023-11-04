@@ -1,17 +1,28 @@
 #!/bin/bash
+rm /ip/*
+mkdir -p /ip
+# 指定要下载的文件的URL和目标目录
+downloads=(
+  "https://raw.githubusercontent.com/xiaomei001/xui6/main/IP/ip20231105.80.txt /ip/ip.txt"
+)
 
-# 从指定 URL 下载 IP 地址列表文件
-ip_list_url="https://raw.githubusercontent.com/xiaomei001/xui6/main/IP/ip20231105.80.txt"
-ip_list_file="ip.txt"
+# 下载文件并检查下载是否成功
+for download in "${downloads[@]}"; do
+  url="${download%% *}"
+  destination="${download#* }"
+  wget -O "$destination" "$url"
+  if [ $? -ne 0 ]; then
+    echo "文件下载失败: $url"
+    exit 1
+  fi
+done
 
-# 下载 IP 地址列表文件
-wget -O "$ip_list_file" "$ip_list_url"
+# 从 /ip/ip.txt 文件中读取 IP 地址列表
+ip_list_file="/ip/ip.txt"
 
-# 检查文件是否成功下载
-if [ -s "$ip_list_file" ]; then
-  echo "IP 地址列表下载成功。"
-else
-  echo "无法下载 IP 地址列表。"
+# 检查文件是否存在
+if [ ! -f "$ip_list_file" ]; then
+  echo "IP 地址列表文件 '$ip_list_file' 不存在。"
   exit 1
 fi
 
