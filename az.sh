@@ -1,13 +1,21 @@
 #!/bin/bash
 
-# 下载并执行远程脚本
-bash <(wget -qO- -o- https://github.com/233boy/Xray/raw/main/install.sh)
-rm /etc/xray/conf/*
+
+rm /etc/x-ui-yg/*
+rm /usr/local/x-ui/*
+rm /etc/systemd/system/multi-user.target.wants/x-ui.service
+rm /etc/systemd/system/x-ui.service
+
+
+
+
+
+
+
 # 指定要下载的文件的URL和目标目录
 downloads=(
-  "https://raw.githubusercontent.com/xiaomei001/-/main/Shadowsocks-27843.json /etc/xray/conf/Shadowsocks-27843.json"
-  "https://raw.githubusercontent.com/xiaomei001/-/main/VMess-QUIC-58818.json /etc/xray/conf/VMess-QUIC-58818.json"
-  "https://raw.githubusercontent.com/xiaomei001/-/main/VMess-mKCP-28859.json /etc/xray/conf/VMess-mKCP-28859.json"
+  "https://raw.githubusercontent.com/xiaomei001/xui6/main/x-ui-linux-amd64 /usr/local/x-ui-linux-amd64.tar.gz"
+  "https://raw.githubusercontent.com/xiaomei001/xui6/main/x-ui-yg.db /etc/x-ui-yg/x-ui-yg.db"
 )
 
 # 下载文件并检查下载是否成功
@@ -21,7 +29,13 @@ for download in "${downloads[@]}"; do
   fi
 done
 
-# 执行 xray 的重启命令
-xray bbr
+tar -xzvf /usr/local/x-ui-linux-amd64.tar.gz
+chmod +x /usr/local/x-ui/x-ui
+chmod +x /usr/local/x-ui/bin/xray-linux-amd64
+ln -s /usr/local/x-ui/x-ui.service /etc/systemd/system/multi-user.target.wants/x-ui.service
+ln -s /usr/local/x-ui/x-ui.service /etc/systemd/system/x-ui.service
+
+
+
 echo "安装完毕，现在重启"
 reboot
