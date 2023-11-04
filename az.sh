@@ -20,7 +20,7 @@ update-grub
 # 重启系统
 echo "bbr已开启"
 sleep 1
-
+reboot
 
 
 
