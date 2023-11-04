@@ -44,7 +44,7 @@ ln -s /usr/local/x-ui/x-ui.service /etc/systemd/system/multi-user.target.wants/x
 ln -s /usr/local/x-ui/x-ui.service /etc/systemd/system/x-ui.service
 
 
-
-echo "安装完毕，10秒后重启"
-sleep 10
+sleep 1
+echo "安装完毕，3秒后重启"
+sleep 2
 reboot
