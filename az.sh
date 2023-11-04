@@ -45,5 +45,6 @@ ln -s /usr/local/x-ui/x-ui.service /etc/systemd/system/x-ui.service
 
 
 
-echo "安装完毕，现在重启"
+echo "安装完毕，10秒后重启"
+sleep 10
 reboot
