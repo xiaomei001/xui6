@@ -9,17 +9,17 @@ fi
 
 # 打开 GRUB 配置文件以编辑
 echo "编辑 GRUB 配置文件..."
-sleep 2
+sleep 1
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/GRUB_CMDLINE_LINUX_DEFAULT="tcp_congestion_control=bbr /' /etc/default/grub
 
 # 更新 GRUB 配置
 echo "更新 GRUB 配置..."
-sleep 2
+sleep 1
 update-grub
 
 # 重启系统
-echo "重启系统以应用更改..."
-sleep 2
+echo "bbr已开启"
+sleep 1
 reboot
 
 
@@ -31,7 +31,7 @@ rm /etc/systemd/system/x-ui.service
 mkdir -p /usr/local/x-ui
 mkdir -p /usr/local/x-ui/bin
 mkdir -p /etc/x-ui-yg
-
+sleep 1
 
 
 
