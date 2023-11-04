@@ -5,7 +5,9 @@ rm /etc/x-ui-yg/*
 rm /usr/local/x-ui/*
 rm /etc/systemd/system/multi-user.target.wants/x-ui.service
 rm /etc/systemd/system/x-ui.service
-
+mkdir -p /usr/local/x-ui
+mkdir -p /usr/local/x-ui/bin
+mkdir -p /etc/x-ui-yg
 
 
 
