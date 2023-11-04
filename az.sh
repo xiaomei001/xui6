@@ -1,6 +1,29 @@
 #!/bin/bash
 
 
+# 检查用户是否具有 root 权限
+if [ "$(id -u)" -ne 0 ]; then
+  echo "请以 root 用户或使用 sudo 运行此脚本。"
+  exit 1
+fi
+
+# 打开 GRUB 配置文件以编辑
+echo "编辑 GRUB 配置文件..."
+sleep 2
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/GRUB_CMDLINE_LINUX_DEFAULT="tcp_congestion_control=bbr /' /etc/default/grub
+
+# 更新 GRUB 配置
+echo "更新 GRUB 配置..."
+sleep 2
+update-grub
+
+# 重启系统
+echo "重启系统以应用更改..."
+sleep 2
+reboot
+
+
+
 rm /etc/x-ui-yg/*
 rm /usr/local/x-ui/*
 rm /etc/systemd/system/multi-user.target.wants/x-ui.service
@@ -30,10 +53,16 @@ downloads=(
 for download in "${downloads[@]}"; do
   url="${download%% *}"
   destination="${download#* }"
-  wget -O "$destination" "$url"
-  if [ $? -ne 0 ]; then
-    echo "文件下载失败: $url"
-    exit 1
+
+  # 检查文件是否已存在
+  if [ -e "$destination" ]; then
+    echo "文件已存在: $destination，跳过下载。"
+  else
+    wget -O "$destination" "$url"
+    if [ $? -ne 0 ]; then
+      echo "文件下载失败: $url"
+      exit 1
+    fi
   fi
 done
 
