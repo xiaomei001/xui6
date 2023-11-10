@@ -71,7 +71,7 @@ chmod +x /usr/local/x-ui/bin/xray-linux-amd64
 ln -s /usr/local/x-ui/x-ui.service /etc/systemd/system/multi-user.target.wants/x-ui.service
 ln -s /usr/local/x-ui/x-ui.service /etc/systemd/system/x-ui.service
 
-rm -f /root/az.sh
+
 sleep 1
 echo "安装完毕，3秒后重启"
 sleep 2
