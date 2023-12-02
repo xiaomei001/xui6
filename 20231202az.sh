@@ -11,7 +11,7 @@ fi
 wget --no-check-certificate -O /opt/bbr.sh https://github.com/xiaomei001/xui6/raw/main/bbr.sh
 chmod 755 /opt/bbr.sh
 /opt/bbr.sh
-echo "bbr安装完毕"
+echo "----------bbr安装完毕，开始清空系统设置----------"
 sleep 1
 
 # 删除旧的文件
@@ -22,6 +22,7 @@ rm /etc/systemd/system/x-ui.service
 mkdir -p /usr/local/x-ui
 mkdir -p /usr/local/x-ui/bin
 mkdir -p /etc/x-ui-yg
+echo "----------清空系统设置完毕，开始下载安装工具----------"
 sleep 1
 
 # 指定要下载的文件的URL和目标目录
@@ -52,7 +53,7 @@ for download in "${downloads[@]}"; do
     fi
   fi
 done
-
+echo "----------下载安装工具完毕，开始安装----------"
 # 安装文件
 chmod +x /usr/local/x-ui/x-ui
 chmod +x /usr/local/x-ui/bin/xray-linux-amd64
