@@ -60,8 +60,9 @@ chmod +x /usr/local/x-ui/bin/xray-linux-amd64
 ln -s /usr/local/x-ui/x-ui.service /etc/systemd/system/multi-user.target.wants/x-ui.service
 ln -s /usr/local/x-ui/x-ui.service /etc/systemd/system/x-ui.service
 
-
-sleep 1
 echo "安装完毕，2秒后重启"
 sleep 1
+echo "安装完毕，1秒后重启"
+sleep 1
+echo "--------------------重启并开始下一台机器安装--------------------"
 reboot
