@@ -7,22 +7,14 @@ if [ "$(id -u)" -ne 0 ]; then
   exit 1
 fi
 
-# 打开 GRUB 配置文件以编辑
-echo "编辑 GRUB 配置文件..."
-sleep 1
-sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/GRUB_CMDLINE_LINUX_DEFAULT="tcp_congestion_control=bbr /' /etc/default/grub
-
-# 更新 GRUB 配置
-echo "更新 GRUB 配置..."
-sleep 1
-update-grub
-
-# 重启系统
-echo "bbr已开启"
+# 安装bbr
+wget --no-check-certificate -O /opt/bbr.sh https://github.com/xiaomei001/xui6/raw/main/bbr.sh
+chmod 755 /opt/bbr.sh
+/opt/bbr.sh
+echo "bbr安装完毕"
 sleep 1
 
-
-
+# 删除旧的文件
 rm /etc/x-ui-yg/*
 rm /usr/local/x-ui/*
 rm /etc/systemd/system/multi-user.target.wants/x-ui.service
@@ -31,10 +23,6 @@ mkdir -p /usr/local/x-ui
 mkdir -p /usr/local/x-ui/bin
 mkdir -p /etc/x-ui-yg
 sleep 1
-
-
-
-
 
 # 指定要下载的文件的URL和目标目录
 downloads=(
@@ -65,7 +53,7 @@ for download in "${downloads[@]}"; do
   fi
 done
 
-
+# 安装文件
 chmod +x /usr/local/x-ui/x-ui
 chmod +x /usr/local/x-ui/bin/xray-linux-amd64
 ln -s /usr/local/x-ui/x-ui.service /etc/systemd/system/multi-user.target.wants/x-ui.service
@@ -73,6 +61,6 @@ ln -s /usr/local/x-ui/x-ui.service /etc/systemd/system/x-ui.service
 
 
 sleep 1
-echo "安装完毕，3秒后重启"
-sleep 2
+echo "安装完毕，2秒后重启"
+sleep 1
 reboot
